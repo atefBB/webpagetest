@@ -21,9 +21,11 @@ class WebPageTest {
     $this->apiKey = $api_key;
     $this->baseUrl = $base_url;
     $client_options = [];
+    
     if (isset($handler)) {
       $client_options['handler'] = $handler;
     }
+    
     $this->client = new Client($client_options);
   }
 
@@ -40,11 +42,9 @@ class WebPageTest {
   private function getRequest($uri, array $query_params = [], $expect_json = TRUE) {
     try {
       $response = $this->client->request('GET', $uri, ['query' => $query_params]);
-    }
-    catch (ClientException $e) {
+    } catch (ClientException $e) {
       $response = $e->getResponse();
-    }
-    catch (RequestException $e) {
+    } catch (RequestException $e) {
       $response = $e->getResponse();
     }
 
@@ -78,10 +78,10 @@ class WebPageTest {
    */
   public function getTestStatus($test_id, array $options = []) {
     $uri = "{$this->baseUrl}/testStatus.php";
-    $query_params = [
+    $query_params = array(
       'test' => $test_id,
       'f' => 'json',
-    ];
+    );
 
     return $this->getRequest($uri, $query_params + $options);
   }
@@ -91,9 +91,9 @@ class WebPageTest {
    */
   public function getTestResults($test_id, array $options = []) {
     $uri = "{$this->baseUrl}/jsonResult.php";
-    $query_params = [
+    $query_params = array(
       'test' => $test_id,
-    ];
+    );
 
     return $this->getRequest($uri, $query_params + $options);
   }
@@ -103,9 +103,9 @@ class WebPageTest {
    */
   public function getLocations(array $options = []) {
     $uri = "{$this->baseUrl}/getLocations.php";
-    $query_params = [
+    $query_params = array(
       'f' => 'json',
-    ];
+    );
 
     return $this->getRequest($uri, $query_params + $options);
   }
@@ -115,10 +115,10 @@ class WebPageTest {
    */
   public function cancelTest($test_id, array $options = []) {
     $uri = "{$this->baseUrl}/cancelTest.php";
-    $query_params = [
+    $query_params = array(
       'k' => $this->apiKey,
       'test' => $test_id,
-    ];
+    );
 
     return $this->getRequest($uri, $query_params + $options, FALSE);
   }
