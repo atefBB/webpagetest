@@ -20,7 +20,7 @@ class WebPageTest {
   public function __construct($api_key, $handler = NULL, $base_url = 'http://www.webpagetest.org') {
     $this->apiKey = $api_key;
     $this->baseUrl = $base_url;
-    $client_options = [];
+    $client_options = array();
     
     if (isset($handler)) {
       $client_options['handler'] = $handler;
@@ -39,9 +39,9 @@ class WebPageTest {
   /**
    * Makes a get request on a url with specified query parameters.
    */
-  private function getRequest($uri, array $query_params = [], $expect_json = TRUE) {
+  private function getRequest($uri, array $query_params = array(), $expect_json = TRUE) {
     try {
-      $response = $this->client->request('GET', $uri, ['query' => $query_params]);
+      $response = $this->client->request('GET', $uri, array('query' => $query_params));
     } catch (ClientException $e) {
       $response = $e->getResponse();
     } catch (RequestException $e) {
@@ -62,7 +62,7 @@ class WebPageTest {
   /**
    * Initializes a new test on the specified URL.
    */
-  public function runTest($url, array $options = []) {
+  public function runTest($url, array $options = array()) {
     $uri = "{$this->baseUrl}/runtest.php";
     $query_params = [
       'k' => $this->apiKey,
@@ -76,7 +76,7 @@ class WebPageTest {
   /**
    * Retrieves the status of a test with the specified id.
    */
-  public function getTestStatus($test_id, array $options = []) {
+  public function getTestStatus($test_id, array $options = array()) {
     $uri = "{$this->baseUrl}/testStatus.php";
     $query_params = array(
       'test' => $test_id,
@@ -89,7 +89,7 @@ class WebPageTest {
   /**
    * Retrieves results of test with the specified id.
    */
-  public function getTestResults($test_id, array $options = []) {
+  public function getTestResults($test_id, array $options = array()) {
     $uri = "{$this->baseUrl}/jsonResult.php";
     $query_params = array(
       'test' => $test_id,
@@ -101,7 +101,7 @@ class WebPageTest {
   /**
    * Retrieves list of locations.
    */
-  public function getLocations(array $options = []) {
+  public function getLocations(array $options = array()) {
     $uri = "{$this->baseUrl}/getLocations.php";
     $query_params = array(
       'f' => 'json',
@@ -113,7 +113,7 @@ class WebPageTest {
   /**
    * Cancels a test.
    */
-  public function cancelTest($test_id, array $options = []) {
+  public function cancelTest($test_id, array $options = array()) {
     $uri = "{$this->baseUrl}/cancelTest.php";
     $query_params = array(
       'k' => $this->apiKey,
